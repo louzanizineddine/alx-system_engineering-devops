@@ -3,7 +3,7 @@
 
 x=1
 
-while [ $x -le 10 ]
+until [ $x -ge 11 ]
 do
   echo "Best School"
   x=$((x + 1))
