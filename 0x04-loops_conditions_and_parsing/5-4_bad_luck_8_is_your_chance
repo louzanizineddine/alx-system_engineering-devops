@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# prints "bad luck" 4th iteration, "good luck" on the 8th iteration, and "Best School" for other iterations
+x=1
+
+while [ $x -le 10 ]
+do
+    if [ $x -eq 4 ]
+    then
+        echo "bad luck"
+    elif [ $x -eq 8 ]
+    then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+    x=$(( x + 1 ))
+done
