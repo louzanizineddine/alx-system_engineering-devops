@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Install Nginx
+apt-get -y update
+apt-get -y install nginx
+
+# Allow HTTP traffic
+ufw allow 'Nginx HTTP'
+
+# Create a simple HTML file
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Configure Nginx for redirection
+CONFIG_FILE="/etc/nginx/sites-available/default"
+REDIRECT_CONFIG="
+    location /redirect_me {
+        return 301 www.github.com;
+    }
+"
+
+# Add redirection configuration to Nginx file
+echo "$REDIRECT_CONFIG" | sudo tee -a "$CONFIG_FILE" > /dev/null
+
+# Restart Nginx to apply changes
+service nginx restart
+
