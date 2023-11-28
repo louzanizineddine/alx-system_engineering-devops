@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# BASH SCRIPT TO Install nginx web server
+# AND
+# Configure your Nginx server so that
+# /redirect_me is redirecting to another page.
+
+sudo apt-get update
+
+sudo apt-get install nginx -y
+
+sudo ufw allow 'Nginx HTTP'
+
+sudo mkdir -p /var/www/html/redirect_me
+
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+
+echo "error_page 404 /404.html;
+    location = /404.html {
+        internal;
+        root /var/www/html;
+        return 404 /404.html;
+    }" | sudo tee /etc/nginx/sites-available/redirect_me.conf
+
+sudo rm -f /etc/nginx/sites-enabled/redirect_me.conf
+sudo ln -s /etc/nginx/sites-available/redirect_me.conf /etc/nginx/sites-enabled/redirect_me.conf
+sudo nginx -t
+sudo systemctl restart nginx
