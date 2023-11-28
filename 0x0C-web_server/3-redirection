@@ -1,26 +1,30 @@
 #!/usr/bin/env bash
+# BASH SCRIPT TO Install nginx web server
+# AND
+# Configure your Nginx server so that
+# /redirect_me is redirecting to another page.
 
-# Install Nginx
-apt-get -y update
-apt-get -y install nginx
+sudo apt-get update
 
-# Allow HTTP traffic
-ufw allow 'Nginx HTTP'
+sudo apt-get install nginx -y
 
-# Create a simple HTML file
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo ufw allow 'Nginx HTTP'
 
-# Configure Nginx for redirection
-CONFIG_FILE="/etc/nginx/sites-available/default"
-REDIRECT_CONFIG="
+sudo mkdir -p /var/www/html/redirect_me
+
+echo "This page has been moved permanently." | sudo tee /var/www/html/redirect_me/index.html
+
+echo "server {
+    listen 80;
+    server_name localhost;
+
     location /redirect_me {
-        return 301 www.github.com;
+        return 301 /redirect_me/index.html;
     }
-"
+}" | sudo tee /etc/nginx/sites-available/redirect_me.conf
 
-# Add redirection configuration to Nginx file
-echo "$REDIRECT_CONFIG" | sudo tee -a "$CONFIG_FILE" > /dev/null
+sudo rm -f /etc/nginx/sites-enabled/redirect_me.conf
 
-# Restart Nginx to apply changes
-service nginx restart
-
+sudo ln -s /etc/nginx/sites-available/redirect_me.conf /etc/nginx/sites-enabled/redirect_me.conf
+sudo nginx -t
+sudo systemctl restart nginx
