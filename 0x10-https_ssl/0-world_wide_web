@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# print some info about subdomain
+
+domain_info(){
+    dig "$1" | awk -v subdomain="$2" '/^;; ANSWER SECTION:/ {getline; printf "The subdomain %s is a %s record and points to %s\n", subdomain, $4, $5}'
+
+}
+
+if [ "$#" -eq 2 ]
+then
+    domain_info "$2.$1" "$2"
+else
+    domain_info "www.$1" "www"
+    domain_info "lb-01.$1" "lb-01"
+    domain_info "web-01.$1" "web-01"
+    domain_info "web-02.$1" "web-02"
+fi
