@@ -11,13 +11,13 @@ if __name__ == "__main__":
 
     big_dict = {}
 
-    for user in users_result:
+    for u in users_result:
         todo_list = []
-        todos_url = f"https://jsonplaceholder.typicode.com/users/{user.get('id')}/todos"
-        name_url = f"https://jsonplaceholder.typicode.com/users/{user.get('id')}"
+        td = f"https://jsonplaceholder.typicode.com/users/{u.get('id')}/todos"
+        nm_url = f"https://jsonplaceholder.typicode.com/users/{u.get('id')}"
 
-        todo_result = requests.get(todos_url).json()
-        name_result = requests.get(name_url).json()
+        todo_result = requests.get(td).json()
+        name_result = requests.get(nm_url).json()
 
         for todo in todo_result:
             todo_dict = {
@@ -27,7 +27,7 @@ if __name__ == "__main__":
             }
             todo_list.append(todo_dict)
 
-        big_dict[user.get("id")] = todo_list
+        big_dict[u.get("id")] = todo_list
 
     with open("todo_all_employees.json", 'w') as file:
         dump(big_dict, file)
