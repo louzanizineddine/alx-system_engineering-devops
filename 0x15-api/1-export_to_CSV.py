@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """Exprt data of an employee to csv format"""
 
-import requests
 import csv
-from csv import QUOTE_ALL
+import requests
 import sys
 
 
@@ -25,7 +24,7 @@ def export_to_csv(employee_id, employee_name, tasks):
     file_name = f"{employee_id}.csv"
 
     with open(file_name, mode='w', newline='') as file:
-        writer = csv.writer(file, quoting=QUOTE_ALL)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
 
         for task in tasks:
             writer.writerow([employee_id, employee_name, str(
