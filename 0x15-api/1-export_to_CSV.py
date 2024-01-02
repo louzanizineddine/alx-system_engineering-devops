@@ -39,12 +39,12 @@ if __name__ == "__main__":
     employee_id = sys.argv[1]
 
     employee_info = get_employee_info(employee_id)
-    employee_name = employee_info.get("name")
+    employee_username = employee_info.get("username")
 
     employee_tasks = get_employee_tasks(employee_id)
 
-    if employee_name and employee_tasks:
-        export_to_csv(employee_id, employee_name, employee_tasks)
+    if employee_username and employee_tasks:
+        export_to_csv(employee_id, employee_username, employee_tasks)
         # print(f"CSV file {employee_id}.csv has been created.")
     else:
         print("Employee information not found or tasks unavailable.")
