@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Use the jsonplacehoder free api to get some data about an employee"""
 import requests
 import sys
 
