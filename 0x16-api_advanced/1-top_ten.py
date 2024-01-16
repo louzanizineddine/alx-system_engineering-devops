@@ -9,8 +9,7 @@ def top_ten(subreddit):
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64)'}
     try:
-        res = requests.get(url, headers=headers,
-                                allow_redirects=False)
+        res = requests.get(url, headers=headers, allow_redirects=False)
         if res.status_code == 200:
             titles = res.json().get('data').get('children')
             for i in range(10):
