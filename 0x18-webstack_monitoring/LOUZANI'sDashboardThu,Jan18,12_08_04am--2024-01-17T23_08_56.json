@@ -1,0 +1,164 @@
+{
+    "title": "LOUZANI's Dashboard Thu, Jan 18, 12:08:04 am",
+    "description": null,
+    "widgets": [
+        {
+            "id": 575661335035064,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:system.cpu.user{*}"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 6748040825129962,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "query": "avg:system.cpu.user{*} by {service}",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                },
+                                "cell_display_mode": "bar"
+                            }
+                        ]
+                    }
+                ],
+                "has_search_bar": "auto"
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 487138907997036,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "query": "sum:system.mem.used{*} by {service}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "sum"
+                            }
+                        ],
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "automatic"
+                }
+            },
+            "layout": {
+                "x": 8,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 1137818382626466,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "type": "heatmap",
+                "requests": [
+                    {
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "query": "avg:system.cpu.user{*} by {service}"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic"
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 4,
+                "height": 2
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
